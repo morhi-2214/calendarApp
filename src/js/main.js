@@ -4,6 +4,7 @@
     const date = new Date();
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
+    // 表示月の数（デフォルト：１）
     const config = {
         show: 1,
     }; 
@@ -28,6 +29,7 @@
         }
     }
 
+    // カレンダーの原型を作成
     function createCalendar(year, month) {
         const startDate = new Date(year, month - 1, 1);
         const endDate = new Date(year, month, 0);
@@ -79,6 +81,7 @@
     function moveMonth(e) {
         main.innerHTML = '';
 
+        // 先月へ移動する
         if (e.target.id === 'prev') {
             month--;
 
@@ -88,6 +91,7 @@
             }
         }
 
+        // 来月へ移動する
         if (e.target.id === 'next') {
             month++;
 
