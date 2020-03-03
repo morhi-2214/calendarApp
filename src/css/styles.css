@@ -1,5 +1,5 @@
 h1 {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 table {
@@ -26,7 +26,20 @@ td.surplus {
     color: rgb(129, 129, 129) !important;
 }
 
+header {
+    display: flex;
+}
+
 #week {
     padding: 5px 70px;
     color: rgb(88, 88, 88);
+}
+
+#prev {
+    margin-left: 30px;
+}
+
+#next {
+    margin-left: 20px;
+    margin-right: 20px;
 }
