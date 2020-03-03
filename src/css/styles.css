@@ -1,0 +1,32 @@
+h1 {
+    font-size: 18px;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    font-size: 13px;
+    border: 1px solid #ddd;
+    padding: 10px 70px 100px 70px;
+    text-align: center;
+}
+
+td:first-child {
+    color: rgb(255, 31, 31) !important;
+}
+
+td:last-child {
+    color: rgb(60, 95, 202) !important;
+}
+
+td.surplus {
+    color: rgb(129, 129, 129) !important;
+}
+
+#week {
+    padding: 5px 70px;
+    color: rgb(88, 88, 88);
+}
