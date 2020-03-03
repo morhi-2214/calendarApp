@@ -1,0 +1,18 @@
+{
+    "env": {
+        "browser": true
+      },
+    "extends": "eslint:recommended",
+    "globals": {
+    },
+    "parserOptions": {
+        "ecmaVersion": 2015
+    },
+    "rules": {
+        "no-console": "off",
+        "no-extra-semi": "warn",
+        "no-undef": "warn",
+        "quotes": ["warn", "single"],
+        "space-before-blocks": ["warn", { "functions": "always" }]
+    }
+}
