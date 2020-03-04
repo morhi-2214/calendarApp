@@ -26,11 +26,6 @@ td.surplus {
     color: rgb(129, 129, 129) !important;
 }
 
-header {
-    display: flex;
-    user-select: none;
-}
-
 #week {
     padding: 5px 70px;
     color: rgb(88, 88, 88);
@@ -47,6 +42,11 @@ header {
 #next {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.menu {
+    display: flex;
+    user-select: none;
 }
 
 .today {
