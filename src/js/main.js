@@ -4,7 +4,7 @@
     const date = new Date();
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
-    // 表示月の数（デフォルト：１）
+    // 一度に表示する月の数（デフォルト：１）
     const config = {
         show: 1,
     }; 
@@ -66,7 +66,7 @@
                     calendarHtml += '<td class="surplus">' + num + '</td>';
                     dayCount++;
                 } else {
-                    calendarHtml += '<td>' + dayCount + '</td>';
+                    calendarHtml += `<td class="clicked-day" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
                     dayCount++;
                 }
             }
@@ -106,6 +106,14 @@
 
     prev.addEventListener('click', moveMonth);
     next.addEventListener('click', moveMonth);
+
+    document.addEventListener('click', function(e) {
+        if(e.target.classList.contains('clicked-day')) {
+            // あとでここにTodoを書き込める枠を表示させる機能を入れる
+            alert('クリックしたのは' + e.target.dataset.date + 'です')
+        }
+    })
+
 
     nav.innerHTML = '<h1>' + year + '年' + month + '月</h1>';
     showCalendar(year, month); 

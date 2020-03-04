@@ -35,6 +35,11 @@ header {
     color: rgb(88, 88, 88);
 }
 
+#prev, #next {
+    cursor: pointer;
+    user-select: none;
+}
+
 #prev {
     margin-left: 30px;
 }
