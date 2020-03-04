@@ -28,6 +28,7 @@ td.surplus {
 
 header {
     display: flex;
+    user-select: none;
 }
 
 #week {
@@ -37,7 +38,6 @@ header {
 
 #prev, #next {
     cursor: pointer;
-    user-select: none;
 }
 
 #prev {
@@ -47,4 +47,8 @@ header {
 #next {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.today {
+    background: rgba(255, 122, 60, 0.192);
 }

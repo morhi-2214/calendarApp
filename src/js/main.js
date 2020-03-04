@@ -4,6 +4,11 @@
     const date = new Date();
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
+    // 今日の年月日を取得しておく
+    const toDay = date.getDate();
+    const toMonth = date.getMonth() + 1;
+    const toYear = date.getFullYear();
+
     // 一度に表示する月の数（デフォルト：１）
     const config = {
         show: 1,
@@ -66,7 +71,11 @@
                     calendarHtml += '<td class="surplus">' + num + '</td>';
                     dayCount++;
                 } else {
-                    calendarHtml += `<td class="clicked-day" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+                    if (year == toYear && month == toMonth && dayCount == toDay) {
+                        calendarHtml += `<td class="clicked-day today" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+                    } else {
+                        calendarHtml += `<td class="clicked-day" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+                    }
                     dayCount++;
                 }
             }
