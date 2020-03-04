@@ -1,15 +1,24 @@
 {
-  "name": "calendar2",
+  "name": "calendarapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint calendar_app --fix"
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morhi-2214/calendarApp.git"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "eslint": "^6.8.0"
-  }
+  "bugs": {
+    "url": "https://github.com/morhi-2214/calendarApp/issues"
+  },
+  "homepage": "https://github.com/morhi-2214/calendarApp#readme"
 }
