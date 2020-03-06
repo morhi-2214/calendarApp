@@ -3,12 +3,19 @@
 
     <head>
         <meta charset="utf-8">
-        <title>calendar-app</title>
+        <meta http-equiv="x-us-compatible" content="ie=edge">
+        <title>Calendar App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/styles.css">
     </head>
 
+
     <body>
-        <div="main">
+        <!-- -------------ここからカレンダー部分---------------- -->
+
+        <div class="main">
             <div class="menu">
                 <h1 id="prev">&lt;</h1>
                 <h1 id="next">&gt;</h1>
@@ -16,7 +23,34 @@
             </div>
             <div id="calendar-main"></div>
         </div>
-        <script src="js/main.js"></script>
+
+        <!-- -------------ここまでカレンダー部分---------------- -->
+
+
+        <!-- --------ここからモーダル＆Todoリスト部分------------ -->
+
+        <div class="inactive container" id="modal">
+            <h1 class="text-light" id="close">✖</h1>
+            <header class="text-center text-light my-2">
+                <h1 class="mb-4">Todo List</h1>
+                <form class="search">
+                    <input type="text" class="form-control m-auto" name="search" placeholder="Search Keyword">
+                </form>
+            </header>
+
+            <ul class="list-group todos mx-auto text-light">
+
+            </ul>
+
+            <form class="add-task text-center my-4">
+                <label class="text-light">ADDING TASK</label>
+                <input type="text" class="form-control m-auto" name="add" placeholder="New Text">
+            </form>
+        </div>
+
+        <!-- --------ここまでモーダル＆Todoリスト部分------------ -->
+
+        <script src="js/main.js" defer></script>
     </body>
 
 </html>

@@ -1,5 +1,8 @@
 'use strict'
 {
+
+    // -------------------------ここからカレンダーの部分--------------------------------------- 
+
     const weeks = ['日','月','火','水','木','金','土'];
     const date = new Date();
     let year = date.getFullYear();
@@ -120,11 +123,97 @@
         if(e.target.classList.contains('clicked-day')) {
             // あとでここにTodoを書き込める枠を表示させる機能を入れる
             alert('クリックしたのは' + e.target.dataset.date + 'です')
+            document.getElementById('modal').classList.remove('inactive');
         }
     })
 
 
     nav.innerHTML = '<h1>' + year + '年' + month + '月</h1>';
     showCalendar(year, month); 
+
+    // -------------------------ここまでカレンダーの部分---------------------------------------
+
+
+    // -------------------------ここからモーダル＆ToDoリストの部分---------------------------------------
+
+    const search = document.querySelector('.search input')
+    const addTask = document.querySelector('.add-task');
+    const todos = document.querySelector('.todos');
+
+    (function() {
+        // ローカルストレージからリストを再生成
+        for (let key in localStorage) {
+            let html = localStorage.getItem(key);
+            if (html) {
+                todos.innerHTML += localStorage.getItem(key);
+            }
+        }
+    })();
+
+    const saveTaskToLocalStorage = (task, html) => {
+        if (html){
+            localStorage.setItem(task, html);
+            return;
+        }
+        return;
+    }
+
+    const deleteTaskFromLocalStorage = (task) => {
+        localStorage.removeItem(task);
+        return;
+    }
+
+    // タスクに入力した値でToDoリストを作成
+    const createTodoList = (task) => {
+        const html = `
+        <li class=list-group-item align-items-center">
+            <span>${task}</span>
+            <span class="delete">✖</span>
+        </li>
+        `;
+    
+        todos.innerHTML += html;
+        saveTaskToLocalStorage(task, html);
+    }
+
+    addTask.addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        // タスクに入力した値の前後の空白を除いて格納する
+        const task = addTask.add.value.trim();
+        // タスクに入力した文字数が0でない場合
+        if (task.length) {
+            createTodoList(task);
+            addTask.reset();
+        }   
+    });
+
+    // ✖をクリックすることで対象のToDoリストを削除
+    todos.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete')){
+            e.target.parentElement.remove();
+            const task = e.target.parentElement.textContent.trim();
+            deleteTaskFromLocalStorage(task);
+        }
+    });
+
+
+    // Todoリストをキーワード検索する
+    const filterTasks = (term) => {
+        Array.from(todos.children) 
+            .filter((todo) => !todo.textContent.toLowerCase().includes(term))
+            .forEach((todo) => todo.classList.add('filtered'));
+        Array.from(todos.children)
+            .filter((todo) => todo.textContent.toLowerCase().includes(term))
+            .forEach((todo) => todo.classList.remove('filtered'));
+    };
+
+    search.addEventListener('keyup', () => {
+        const term = search.value.trim().toLowerCase();
+        filterTasks(term);
+    });
+
+    // -------------------------ここまでモーダル＆ToDoリストの部分---------------------------------------
+
 }
 

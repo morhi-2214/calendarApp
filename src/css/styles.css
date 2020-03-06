@@ -1,6 +1,14 @@
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;
+}
+
 h1 {
     font-size: 20px;
 }
+
+/* ここから主にカレンダー部分用のCSS */
 
 table {
     border-spacing: 0;
@@ -10,7 +18,8 @@ table {
 td {
     font-size: 13px;
     border: 1px solid #ddd;
-    padding: 10px 70px 100px 70px;
+    padding-top: 1vh;
+    padding-bottom: 10vh;
     text-align: center;
 }
 
@@ -26,8 +35,17 @@ td.surplus {
     color: rgb(129, 129, 129) !important;
 }
 
+.main { 
+    width: 62.5vw;
+    margin: 0 auto;
+}
+
+.menu {
+    padding-top: 20px;
+}
+
 #week {
-    padding: 5px 70px;
+    padding: 0.5vh 4vw;
     color: rgb(88, 88, 88);
 }
 
@@ -51,4 +69,57 @@ td.surplus {
 
 .today {
     background: rgba(255, 122, 60, 0.192);
+}
+
+
+/* ここからモーダル＆Todoリスト用のCSS */
+
+
+.container {
+    max-width: 400px;
+    background: #475e9e;
+    border-radius: 5px;
+    padding: 15px 40px 70px 40px;
+    position: fixed;
+    top: 15vh;
+    left: 37vw;
+    z-index: 9999;
+}
+
+.inactive {
+    display: none;
+}
+
+#close {
+    font-size: 20px;
+    text-align: right;
+    cursor: pointer;
+}
+
+input[type=text],
+input[type=text]:focus {
+    color: #9abca4;
+    border: none;
+    background: rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+}
+
+/* 追加 */
+.todos li {
+    background: #2c4b79;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 追加 */
+.delete {
+    cursor: pointer;
+    color: white;
+}
+
+.filtered {
+    display: none !important;
 }
