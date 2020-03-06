@@ -16,10 +16,14 @@
     const config = {
         show: 1,
     }; 
+    
     const nav = document.getElementById('nav');
     const main = document.getElementById('calendar-main');
     const prev = document.getElementById('prev');
     const next = document.getElementById('next');
+    const modal = document.getElementById('modal');
+    const close = document.getElementById('close');
+
     
     function showCalendar(year, month) {
         for ( let i = 0; i < config.show; i++) {
@@ -123,9 +127,15 @@
         if(e.target.classList.contains('clicked-day')) {
             // あとでここにTodoを書き込める枠を表示させる機能を入れる
             alert('クリックしたのは' + e.target.dataset.date + 'です')
-            document.getElementById('modal').classList.remove('inactive');
+            // カレンダーのマスを押すことでモーダルを表示
+            modal.classList.remove('inactive');
         }
-    })
+    });
+
+    // ✖を押すことでモーダルを閉じる
+    close.addEventListener('click', () =>{
+        modal.classList.add('inactive');
+    });
 
 
     nav.innerHTML = '<h1>' + year + '年' + month + '月</h1>';
