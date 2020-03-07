@@ -1,7 +1,15 @@
 'use strict'
-{
+{   
+    const nav = document.getElementById('nav');
+    const main = document.getElementById('calendar-main');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const modal = document.getElementById('modal');
+    const close = document.getElementById('close');
+    const planDay = document.getElementById('plan-day');
+    const daySearch = document.getElementById('day-search');
 
-    // -------------------------ここからカレンダーの部分--------------------------------------- 
+     // -------------------------ここから主にカレンダーの部分--------------------------------------- 
 
     const weeks = ['日','月','火','水','木','金','土'];
     const date = new Date();
@@ -16,14 +24,6 @@
     const config = {
         show: 1,
     }; 
-    
-    const nav = document.getElementById('nav');
-    const main = document.getElementById('calendar-main');
-    const prev = document.getElementById('prev');
-    const next = document.getElementById('next');
-    const modal = document.getElementById('modal');
-    const close = document.getElementById('close');
-
     
     function showCalendar(year, month) {
         for ( let i = 0; i < config.show; i++) {
@@ -123,14 +123,21 @@
     prev.addEventListener('click', moveMonth);
     next.addEventListener('click', moveMonth);
 
+
     document.addEventListener('click', function(e) {
         if(e.target.classList.contains('clicked-day')) {
             // あとでここにTodoを書き込める枠を表示させる機能を入れる
-            alert('クリックしたのは' + e.target.dataset.date + 'です')
+            planDay.textContent = e.target.dataset.date + ' の予定';
+            daySearch.value = e.target.dataset.date;
+            const term = search.value.trim().toLowerCase();
+            filterTasks(term);
             // カレンダーのマスを押すことでモーダルを表示
             modal.classList.remove('inactive');
+            
+            window.aaa = e.target.dataset.date;
         }
     });
+
 
     // ✖を押すことでモーダルを閉じる
     close.addEventListener('click', () =>{
@@ -141,7 +148,7 @@
     nav.innerHTML = '<h1>' + year + '年' + month + '月</h1>';
     showCalendar(year, month); 
 
-    // -------------------------ここまでカレンダーの部分---------------------------------------
+    // -------------------------ここまで主にカレンダーの部分---------------------------------------
 
 
     // -------------------------ここからモーダル＆ToDoリストの部分---------------------------------------
@@ -160,14 +167,17 @@
         }
     })();
 
+    // ローカルストレージにデータを保存
     const saveTaskToLocalStorage = (task, html) => {
         if (html){
+            
             localStorage.setItem(task, html);
             return;
         }
         return;
     }
 
+    // ローカルストレージからデータを削除
     const deleteTaskFromLocalStorage = (task) => {
         localStorage.removeItem(task);
         return;
@@ -186,6 +196,7 @@
         saveTaskToLocalStorage(task, html);
     }
 
+    // タスクをリストへ追加
     addTask.addEventListener('submit', (e) => {
         e.preventDefault();
     
@@ -193,9 +204,9 @@
         const task = addTask.add.value.trim();
         // タスクに入力した文字数が0でない場合
         if (task.length) {
-            createTodoList(task);
+            createTodoList(window.aaa + '  ' + task);
             addTask.reset();
-        }   
+        } 
     });
 
     // ✖をクリックすることで対象のToDoリストを削除
@@ -208,7 +219,7 @@
     });
 
 
-    // Todoリストをキーワード検索する
+    // Todoリストをキーワード検索する(今回は主に日付検索に使う）
     const filterTasks = (term) => {
         Array.from(todos.children) 
             .filter((todo) => !todo.textContent.toLowerCase().includes(term))
@@ -222,6 +233,7 @@
         const term = search.value.trim().toLowerCase();
         filterTasks(term);
     });
+
 
     // -------------------------ここまでモーダル＆ToDoリストの部分---------------------------------------
 
