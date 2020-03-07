@@ -86,11 +86,9 @@
                     dayCount++;
                 }
             }
-
             calendarHtml += '</tr>';
         }
         calendarHtml += '</table>';
-
         return calendarHtml;
     }
 
@@ -124,19 +122,20 @@
     next.addEventListener('click', moveMonth);
 
 
+    // カレンダーの日付をクリック ⇒ それぞれのTodoリストを表示
     document.addEventListener('click', function(e) {
         if(e.target.classList.contains('clicked-day')) {
             // モーダル上部に日付を表示
             planDay.textContent = e.target.dataset.date + ' の予定';
 
             // モーダル表示と同時に検索欄に自動で日付を入力し、その日の予定を検索
-            daySearch.value = e.target.dataset.date;
+            daySearch.value = e.target.dataset.date + '.';
             const term = search.value.trim().toLowerCase();
             filterTasks(term);
 
             // カレンダーのマスを押すことでモーダルを表示
             modal.classList.add('active');
-            
+
             // 日付の数値を代入し、外でも使えるようにした
             window.aaa = e.target.dataset.date;
         }
@@ -208,7 +207,7 @@
         const task = addTask.add.value.trim();
         // タスクに入力した文字数が0でない場合
         if (task.length) {
-            createTodoList(window.aaa + '  ' + task);
+            createTodoList(window.aaa + '. ' + task);
             addTask.reset();
         } 
     });
