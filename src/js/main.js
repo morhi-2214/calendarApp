@@ -126,14 +126,18 @@
 
     document.addEventListener('click', function(e) {
         if(e.target.classList.contains('clicked-day')) {
-            // あとでここにTodoを書き込める枠を表示させる機能を入れる
+            // モーダル上部に日付を表示
             planDay.textContent = e.target.dataset.date + ' の予定';
+
+            // モーダル表示と同時に検索欄に自動で日付を入力し、その日の予定を検索
             daySearch.value = e.target.dataset.date;
             const term = search.value.trim().toLowerCase();
             filterTasks(term);
+
             // カレンダーのマスを押すことでモーダルを表示
-            modal.classList.remove('inactive');
+            modal.classList.add('active');
             
+            // 日付の数値を代入し、外でも使えるようにした
             window.aaa = e.target.dataset.date;
         }
     });
@@ -141,7 +145,7 @@
 
     // ✖を押すことでモーダルを閉じる
     close.addEventListener('click', () =>{
-        modal.classList.add('inactive');
+        modal.classList.remove('active');
     });
 
 
