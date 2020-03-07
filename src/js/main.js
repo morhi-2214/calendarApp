@@ -217,7 +217,7 @@
         if (e.target.classList.contains('delete')){
             e.target.parentElement.remove();
             const task = e.target.parentElement.textContent.trim();
-            deleteTaskFromLocalStorage(window.aaa + '. ' + task);
+            deleteTaskFromLocalStorage(task.slice(0, -1).trim());
         }
     });
 
