@@ -1,6 +1,14 @@
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    width: 100vw;
+}
+
 h1 {
     font-size: 20px;
 }
+
+/* ここから主にカレンダー部分用のCSS */
 
 table {
     border-spacing: 0;
@@ -8,10 +16,14 @@ table {
 }
 
 td {
+    width: 10vw;
+    height: 14vh;
     font-size: 13px;
-    border: 1px solid #ddd;
-    padding: 10px 70px 100px 70px;
+    border: 1px solid rgb(221, 221, 221);
     text-align: center;
+    vertical-align: top;
+    padding-top: 2vh;
+    line-height: 0.7em;
 }
 
 td:first-child {
@@ -26,22 +38,45 @@ td.surplus {
     color: rgb(129, 129, 129) !important;
 }
 
+.main { 
+    width: 62.5vw;
+    margin: 0 auto;
+}
+
+.menu {
+    padding-top: 20px;
+}
+
 #week {
-    padding: 5px 70px;
+    height: 5vh;
     color: rgb(88, 88, 88);
 }
 
 #prev, #next {
     cursor: pointer;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    line-height: 1.5em;
+    transition: background-color 500ms;
 }
 
 #prev {
-    margin-left: 30px;
+    margin-left: 20px;
+}
+
+#prev:hover {
+    background: rgba(238, 238, 238, 0.7);
 }
 
 #next {
-    margin-left: 20px;
+    margin-left: 10px;
     margin-right: 20px;
+}
+
+#next:hover {
+    background: rgba(238, 238, 238, 0.7);
 }
 
 .menu {
@@ -51,4 +86,66 @@ td.surplus {
 
 .today {
     background: rgba(255, 122, 60, 0.192);
+}
+
+
+/* ここからモーダル＆Todoリスト用のCSS */
+
+
+.container {
+    max-width: 400px;
+    background: #475e9e;
+    border-radius: 5px;
+    padding: 15px 40px 70px 40px;
+    position: fixed;
+    top: 15vh;
+    left: 37vw;
+    
+}
+
+.fadein {
+    opacity : 0;
+    z-index: -9999;
+    transform : translate(0, 30px);
+    transition : all 600ms;
+}
+
+.fadein.active {
+    opacity : 1;
+    z-index: 9999;
+    transform : translate(0, 0);
+}
+
+#close {
+    width: 15px;
+    margin-top: 10px;
+    margin-left: 310px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+input[type=text],
+input[type=text]:focus {
+    color: #9abca4;
+    border: none;
+    background: rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+}
+
+.todos li {
+    background: #2c4b79;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete {
+    cursor: pointer;
+    color: white;
+}
+
+.filtered {
+    display: none !important;
 }

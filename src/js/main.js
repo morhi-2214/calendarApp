@@ -1,5 +1,16 @@
 'use strict'
-{
+{   
+    const nav = document.getElementById('nav');
+    const main = document.getElementById('calendar-main');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const modal = document.getElementById('modal');
+    const close = document.getElementById('close');
+    const planDay = document.getElementById('plan-day');
+    const daySearch = document.getElementById('day-search');
+
+     // -------------------------ここから主にカレンダーの部分--------------------------------------- 
+
     const weeks = ['日','月','火','水','木','金','土'];
     const date = new Date();
     let year = date.getFullYear();
@@ -13,10 +24,6 @@
     const config = {
         show: 1,
     }; 
-    const nav = document.getElementById('nav');
-    const main = document.getElementById('calendar-main');
-    const prev = document.getElementById('prev');
-    const next = document.getElementById('next');
     
     function showCalendar(year, month) {
         for ( let i = 0; i < config.show; i++) {
@@ -72,9 +79,9 @@
                     dayCount++;
                 } else {
                     if (year == toYear && month == toMonth && dayCount == toDay) {
-                        calendarHtml += `<td class="clicked-day today" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+                        calendarHtml += `<td class="clicked-day today" data-date="${year}/${month}/${dayCount}">${dayCount}<br></br></td>`;
                     } else {
-                        calendarHtml += `<td class="clicked-day" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+                        calendarHtml += `<td class="clicked-day" data-date="${year}/${month}/${dayCount}">${dayCount}<br></br></td>`;
                     }
                     dayCount++;
                 }
@@ -83,7 +90,6 @@
             calendarHtml += '</tr>';
         }
         calendarHtml += '</table>';
-
         return calendarHtml;
     }
 
@@ -116,15 +122,122 @@
     prev.addEventListener('click', moveMonth);
     next.addEventListener('click', moveMonth);
 
+
+    // カレンダーの日付をクリック ⇒ それぞれのTodoリストを表示
     document.addEventListener('click', function(e) {
         if(e.target.classList.contains('clicked-day')) {
-            // あとでここにTodoを書き込める枠を表示させる機能を入れる
-            alert('クリックしたのは' + e.target.dataset.date + 'です')
+            // モーダル上部に日付を表示
+            planDay.textContent = e.target.dataset.date + ' の予定';
+
+            // モーダル表示と同時に検索欄に自動で日付を入力し、その日の予定を検索
+            daySearch.value = e.target.dataset.date + '.';
+            const term = search.value.trim().toLowerCase();
+            filterTasks(term);
+
+            // カレンダーのマスを押すことでモーダルを表示
+            modal.classList.add('active');
+
+            // 日付の数値を代入し、外でも使えるようにした
+            window.aaa = e.target.dataset.date;
         }
-    })
+    });
+
+
+    // ✖を押すことでモーダルを閉じる
+    close.addEventListener('click', () =>{
+        modal.classList.remove('active');
+    });
 
 
     nav.innerHTML = '<h1>' + year + '年' + month + '月</h1>';
     showCalendar(year, month); 
+
+    // -------------------------ここまで主にカレンダーの部分---------------------------------------
+
+
+    // -------------------------ここからモーダル＆ToDoリストの部分---------------------------------------
+
+    const search = document.querySelector('.search input')
+    const addTask = document.querySelector('.add-task');
+    const todos = document.querySelector('.todos');
+
+    (function() {
+        // ローカルストレージからリストを再生成
+        for (let key in localStorage) {
+            let html = localStorage.getItem(key);
+            if (html) {
+                todos.innerHTML += localStorage.getItem(key);
+            }
+        }
+    })();
+
+    // ローカルストレージにデータを保存
+    const saveTaskToLocalStorage = (task, html) => {
+        if (html){
+            localStorage.setItem(task, html);
+            return;
+        }
+        return;
+    }
+
+    // ローカルストレージからデータを削除
+    const deleteTaskFromLocalStorage = (task) => {
+        localStorage.removeItem(task);
+        return;
+    }
+
+    // タスクに入力した値でToDoリストを作成
+    const createTodoList = (task) => {
+        const html = `
+        <li class=list-group-item align-items-center">
+            <span>${task}</span>
+            <span class="delete">✖</span>
+        </li>
+        `;
+    
+        todos.innerHTML += html;
+        saveTaskToLocalStorage(task, html);
+    }
+
+    // タスクをリストへ追加
+    addTask.addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        // タスクに入力した値の前後の空白を除いて格納する
+        const task = addTask.add.value.trim();
+        // タスクに入力した文字数が0でない場合
+        if (task.length) {
+            createTodoList(window.aaa + '. ' + task);
+            addTask.reset();
+        }
+    });
+
+    // ✖をクリックすることで対象のToDoリストを削除
+    todos.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete')){
+            e.target.parentElement.remove();
+            const task = e.target.parentElement.textContent.trim();
+            deleteTaskFromLocalStorage(task.slice(0, -1).trim());
+        }
+    });
+
+
+    // Todoリストをキーワード検索する(今回は主に日付検索に使う）
+    const filterTasks = (term) => {
+        Array.from(todos.children) 
+            .filter((todo) => !todo.textContent.toLowerCase().includes(term))
+            .forEach((todo) => todo.classList.add('filtered'));
+        Array.from(todos.children)
+            .filter((todo) => todo.textContent.toLowerCase().includes(term))
+            .forEach((todo) => todo.classList.remove('filtered'));
+    };
+
+    search.addEventListener('keyup', () => {
+        const term = search.value.trim().toLowerCase();
+        filterTasks(term);
+    });
+
+    // -------------------------ここまでモーダル＆ToDoリストの部分---------------------------------------
+
 }
 
