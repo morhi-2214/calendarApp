@@ -79,13 +79,14 @@
                     dayCount++;
                 } else {
                     if (year == toYear && month == toMonth && dayCount == toDay) {
-                        calendarHtml += `<td class="clicked-day today" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+                        calendarHtml += `<td class="clicked-day today" data-date="${year}/${month}/${dayCount}">${dayCount}<br></br></td>`;
                     } else {
-                        calendarHtml += `<td class="clicked-day" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+                        calendarHtml += `<td class="clicked-day" data-date="${year}/${month}/${dayCount}">${dayCount}<br></br></td>`;
                     }
                     dayCount++;
                 }
             }
+
             calendarHtml += '</tr>';
         }
         calendarHtml += '</table>';
@@ -173,7 +174,6 @@
     // ローカルストレージにデータを保存
     const saveTaskToLocalStorage = (task, html) => {
         if (html){
-            
             localStorage.setItem(task, html);
             return;
         }
@@ -209,7 +209,7 @@
         if (task.length) {
             createTodoList(window.aaa + '. ' + task);
             addTask.reset();
-        } 
+        }
     });
 
     // ✖をクリックすることで対象のToDoリストを削除
@@ -217,7 +217,7 @@
         if (e.target.classList.contains('delete')){
             e.target.parentElement.remove();
             const task = e.target.parentElement.textContent.trim();
-            deleteTaskFromLocalStorage(task);
+            deleteTaskFromLocalStorage(window.aaa + '. ' + task);
         }
     });
 
@@ -236,7 +236,6 @@
         const term = search.value.trim().toLowerCase();
         filterTasks(term);
     });
-
 
     // -------------------------ここまでモーダル＆ToDoリストの部分---------------------------------------
 

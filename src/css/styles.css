@@ -16,11 +16,14 @@ table {
 }
 
 td {
+    width: 10vw;
+    height: 14vh;
     font-size: 13px;
     border: 1px solid rgb(221, 221, 221);
-    padding-top: 1vh;
-    padding-bottom: 10vh;
     text-align: center;
+    vertical-align: top;
+    padding-top: 2vh;
+    line-height: 0.7em;
 }
 
 td:first-child {
@@ -45,7 +48,7 @@ td.surplus {
 }
 
 #week {
-    padding: 0.5vh 4vw;
+    height: 5vh;
     color: rgb(88, 88, 88);
 }
 
@@ -114,8 +117,10 @@ td.surplus {
 }
 
 #close {
+    width: 15px;
+    margin-top: 10px;
+    margin-left: 310px;
     font-size: 20px;
-    text-align: right;
     cursor: pointer;
 }
 
